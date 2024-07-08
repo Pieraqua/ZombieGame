@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddqpc5vono806"]
+
+[ext_resource type="PackedScene" uid="uid://duavd3ff8ak2t" path="res://Objetos/Entidades/player.tscn" id="1_hxyur"]
+[ext_resource type="Script" path="res://Objetos/Cenas/World.gd" id="1_n30py"]
+[ext_resource type="Script" path="res://Objetos/Entidades/Weapon.gd" id="2_igan7"]
+[ext_resource type="PackedScene" uid="uid://b1dlj3hlq6v3m" path="res://Objetos/Entidades/enemy.tscn" id="3_mggog"]
+[ext_resource type="PackedScene" uid="uid://b1r2emx56r5ld" path="res://Objetos/Cenas/map_1_box.tscn" id="5_7nlq6"]
+
+[sub_resource type="Resource" id="Resource_dbywc"]
+script = ExtResource("2_igan7")
+cooldown = 0.2
+max_distance = 20
+damage = 30.0
+
+[node name="TestScene3D" type="Node3D"]
+script = ExtResource("1_n30py")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.919135, 0.393942, 0, -0.393942, 0.919135, 0, 2.36337, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_hxyur")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 1.14, 1.86522, 1.97)
+weapons = Array[ExtResource("2_igan7")]([SubResource("Resource_dbywc")])
+
+[node name="Enemy" parent="." instance=ExtResource("3_mggog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.55286, 2.73805, -4.16174)
+
+[node name="Map1_Box" parent="." instance=ExtResource("5_7nlq6")]
+
+[node name="Enemy2" parent="." instance=ExtResource("3_mggog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09189, 2.73805, -4.16174)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_mggog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75152, -4.16174)
+
+[node name="Enemy4" parent="." instance=ExtResource("3_mggog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.55286, 2.73805, -19.3515)
