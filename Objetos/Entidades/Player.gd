@@ -12,6 +12,7 @@ var sensitivity : float = 0.001
 @export var weapons : Array[Weapon] = []
 var weapon : Weapon
 var weapon_index := 0
+var shooting = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -22,8 +23,6 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	weapon = weapons[weapon_index]
 	swap_weapon()
-	
-	
 	
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -49,26 +48,40 @@ func _input(event):
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif event is InputEventMouseButton:
 		if event.is_action_pressed('Shoot'):
-			if !raycast.is_colliding(): return
-			
-			var target = raycast.get_collider() # A CollisionObject3D.
-			var shape_id = raycast.get_collider_shape() # The shape index in the collider.
-			
-			if target and not target is CSGCombiner3D:
-				var owner_id = target.shape_find_owner(shape_id) # The owner ID in the collider.
-				var shape = target.shape_owner_get_owner(owner_id)
-				var dmg_component = shape.find_child("DamageableComponent")
-				if dmg_component:
-					dmg_component.damage(weapon.damage)
-				
-			var impact = preload("res://Objetos/Impacto/Impacto.tscn")
-			var impact_instance = impact.instantiate()
-			
-			get_tree().root.add_child(impact_instance)
-			impact_instance.position = raycast.get_collision_point() + (raycast.get_collision_normal() / 10)
-			impact_instance.emitting = true
+			shoot()
 			
 			
+
+@onready var weapon_timer = $WeaponTimer
+func shoot():
+	if not weapon_timer.is_stopped():
+		return
+		
+	weapon_timer.start(weapon.cooldown)
+	
+	if !raycast.is_colliding(): 
+		return
+		
+	var target = raycast.get_collider() # A CollisionObject3D.
+	var shape_id = raycast.get_collider_shape() # The shape index in the collider.
+	
+	if target and not target is CSGCombiner3D:
+		var owner_id = target.shape_find_owner(shape_id) # The owner ID in the collider.
+		var shape = target.shape_owner_get_owner(owner_id)
+		var dmg_component = shape.find_child("DamageableComponent")
+		if dmg_component:
+			dmg_component.damage(weapon.damage)
+		
+	var impact = preload("res://Objetos/Impacto/Impacto.tscn")
+	var impact_instance = impact.instantiate()
+	
+	get_tree().root.add_child(impact_instance)
+	impact_instance.position = raycast.get_collision_point() + (raycast.get_collision_normal() / 10)
+	impact_instance.emitting = true
+
+func weapon_timer_callback():
+	if weapon.automatic and Input.is_action_pressed("Shoot"):
+		shoot()
 
 func _physics_process(delta):
 	# Add the gravity.

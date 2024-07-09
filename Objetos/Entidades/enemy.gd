@@ -16,6 +16,11 @@ extends CharacterBody3D
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var attacking = false
 
+@onready var world = get_tree().root.get_child(0)
+
+func _ready():
+	connect('modify_points', world.update_points)
+
 func _physics_process(delta):
 	
 	if not is_on_floor():
@@ -52,15 +57,18 @@ func finish_attack(anim):
 func update_target_location(target_location):
 	nav_agent.set_target_position(target_location)
 	
+signal modify_points(point_num)
 func headshot_damage(damage_num : int):
 	HP -= damage_num * 2
 	print('headshot damage')
+	emit_signal('modify_points', 20)
 	if HP <= 0:
 		die()
 		
 func body_damage(damage_num : int):
 	HP -= damage_num
 	print('body damage')
+	emit_signal('modify_points', 10)
 	if HP <= 0:
 		die()
 
