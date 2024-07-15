@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwunpelmre3om"]
+[gd_scene load_steps=3 format=3 uid="uid://cwunpelmre3om"]
 
 [ext_resource type="Script" path="res://UI/hud.gd" id="1_8ghaa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c17st"]
+font_size = 50
+font_color = Color(0.8, 0, 0, 1)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -11,10 +15,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8ghaa")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Lower HUD" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="Crosshair" type="Control" parent="CanvasLayer"]
+[node name="Crosshair" type="Control" parent="Lower HUD"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 8
@@ -29,7 +33,7 @@ offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CrosshairUp" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="CrosshairUp" type="ColorRect" parent="Lower HUD/Crosshair"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -39,7 +43,7 @@ offset_right = 2.5
 offset_bottom = 20.0
 grow_horizontal = 2
 
-[node name="CrosshairRight" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="CrosshairRight" type="ColorRect" parent="Lower HUD/Crosshair"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -52,7 +56,7 @@ offset_bottom = 2.5
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="CrosshairLeft" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="CrosshairLeft" type="ColorRect" parent="Lower HUD/Crosshair"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -62,7 +66,7 @@ offset_right = 20.0
 offset_bottom = 2.5
 grow_vertical = 2
 
-[node name="CrosshairDown" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="CrosshairDown" type="ColorRect" parent="Lower HUD/Crosshair"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -75,7 +79,7 @@ offset_right = 2.5
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+[node name="LowerRightContainer" type="PanelContainer" parent="Lower HUD"]
 custom_minimum_size = Vector2(100, 0)
 anchors_preset = 3
 anchor_left = 1.0
@@ -87,13 +91,13 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Points" type="Label" parent="CanvasLayer/PanelContainer"]
+[node name="Points" type="Label" parent="Lower HUD/LowerRightContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Points: 0"
 horizontal_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+[node name="InteractContainer" type="CenterContainer" parent="Lower HUD"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -105,10 +109,35 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="InteractablesContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
+[node name="InteractablesContainer" type="PanelContainer" parent="Lower HUD/InteractContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="InteractablesLabel" type="Label" parent="CanvasLayer/CenterContainer/InteractablesContainer"]
+[node name="InteractablesLabel" type="Label" parent="Lower HUD/InteractContainer/InteractablesContainer"]
 layout_mode = 2
 text = "F : Buy Weapon ( Cost : 500 )"
+
+[node name="Overlay HUD" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="Overlay HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RoundLabelBox" type="PanelContainer" parent="Overlay HUD/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RoundText" type="Label" parent="Overlay HUD/CenterContainer/RoundLabelBox"]
+layout_mode = 2
+text = "Round 0"
+label_settings = SubResource("LabelSettings_c17st")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DisplayTimer" type="Timer" parent="Overlay HUD/CenterContainer/RoundLabelBox"]
+wait_time = 3.0
+one_shot = true
