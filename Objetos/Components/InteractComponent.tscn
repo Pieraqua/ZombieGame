@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://drpflh4aemdje"]
+
+[ext_resource type="Script" path="res://Objetos/Cenas/InteractComponent.gd" id="1_6ifbn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_he6sh"]
+radius = 4.0
+
+[node name="InteractComponent" type="Node3D"]
+script = ExtResource("1_6ifbn")
+
+[node name="InteractArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1.07093e-08, 0, 0.245, 0, 0.245, 0, -0.245, 0, -1.07093e-08, 0, 0, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="InteractShape" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("SphereShape3D_he6sh")

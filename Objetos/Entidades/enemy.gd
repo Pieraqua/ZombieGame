@@ -57,18 +57,18 @@ func finish_attack(anim):
 func update_target_location(target_location):
 	nav_agent.set_target_position(target_location)
 	
-signal modify_points(point_num)
-func headshot_damage(damage_num : int):
+signal modify_points(point_num : int, player : Player)
+func headshot_damage(damage_num : int, player : Player):
 	HP -= damage_num * 2
 	print('headshot damage')
-	emit_signal('modify_points', 20)
+	emit_signal('modify_points', 20, player)
 	if HP <= 0:
 		die()
 		
-func body_damage(damage_num : int):
+func body_damage(damage_num : int, player : Player):
 	HP -= damage_num
 	print('body damage')
-	emit_signal('modify_points', 10)
+	emit_signal('modify_points', 10, player)
 	if HP <= 0:
 		die()
 

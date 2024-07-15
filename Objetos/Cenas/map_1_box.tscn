@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1r2emx56r5ld"]
+[gd_scene load_steps=10 format=3 uid="uid://b1r2emx56r5ld"]
 
 [ext_resource type="Texture2D" uid="uid://11e1cf7mqvty" path="res://Materiais/kenney-prototype-textures-db6622fbe90621eed70a0b417ae8d97281f45e6c/addons/kenney_prototype_textures/dark/texture_01.png" id="3_uaxih"]
 [ext_resource type="Texture2D" uid="uid://dooeh01x5l6iw" path="res://Materiais/kenney-prototype-textures-db6622fbe90621eed70a0b417ae8d97281f45e6c/addons/kenney_prototype_textures/green/texture_01.png" id="4_d04l2"]
+[ext_resource type="PackedScene" uid="uid://1c5up3nahvhf" path="res://Objetos/Entidades/wallbuy.tscn" id="4_n880x"]
 [ext_resource type="Texture2D" uid="uid://keo76rl6txbw" path="res://Materiais/kenney-prototype-textures-db6622fbe90621eed70a0b417ae8d97281f45e6c/addons/kenney_prototype_textures/dark/texture_09.png" id="5_nni08"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ubmkg"]
@@ -67,3 +68,6 @@ shape = SubResource("BoxShape3D_4id5t")
 [node name="NavigationLink3D" type="NavigationLink3D" parent="NavigationRegion3D/CSGCombiner3D/Window"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.731773, 1.23834)
 end_position = Vector3(0, 0, -2.41)
+
+[node name="Wallbuy" parent="." instance=ExtResource("4_n880x")]
+transform = Transform3D(-1.07093e-08, 0, 0.245, 0, 0.245, 0, -0.245, 0, -1.07093e-08, -9.45703, 1.16143, 0)

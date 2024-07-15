@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://cw3aaskxc4ams"]
+
+[ext_resource type="ArrayMesh" uid="uid://cp12xxa7got4f" path="res://Materiais/Modelos/ray_gun_low_poli.tres" id="1_6olnb"]
+[ext_resource type="Script" path="res://Objetos/Entidades/Weapon.gd" id="1_t0lic"]
+
+[resource]
+script = ExtResource("1_t0lic")
+cooldown = 0.2
+max_distance = 15
+damage = 30.0
+automatic = false
+model = ExtResource("1_6olnb")
+name = "Ray Pistol"

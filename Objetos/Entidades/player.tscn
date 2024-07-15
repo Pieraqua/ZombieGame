@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://duavd3ff8ak2t"]
+[gd_scene load_steps=6 format=3 uid="uid://duavd3ff8ak2t"]
 
 [ext_resource type="Script" path="res://Objetos/Entidades/Player.gd" id="1_3aing"]
+[ext_resource type="Resource" uid="uid://cw3aaskxc4ams" path="res://Objetos/Recursos/Armas/pistol.tres" id="2_srtel"]
+[ext_resource type="ArrayMesh" uid="uid://cp12xxa7got4f" path="res://Materiais/Modelos/ray_gun_low_poli.tres" id="2_w7shy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o3c3e"]
 
@@ -8,7 +10,10 @@
 
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.3, 0)
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_3aing")
+weapons = Array[Resource("res://Objetos/Entidades/Weapon.gd")]([ExtResource("2_srtel")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_o3c3e")
@@ -18,7 +23,8 @@ layers = 3
 mesh = SubResource("CapsuleMesh_s28gc")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 0, 0.668226, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.668226, 0)
+cull_mask = 524287
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.15)
@@ -26,5 +32,36 @@ collision_mask = 2
 
 [node name="WeaponTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+positional_shadow_atlas_size = 4096
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="SubviewportCamera" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.493604, 0)
+cull_mask = 524288
+current = true
+
+[node name="Weapon" type="Node3D" parent="CanvasLayer/SubViewportContainer/SubViewport/SubviewportCamera"]
+transform = Transform3D(-0.3, 0, 2.62268e-08, 0, 0.3, 0, -2.62268e-08, 0, -0.3, 0.3297, -0.265604, -0.3255)
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="CanvasLayer/SubViewportContainer/SubViewport/SubviewportCamera/Weapon"]
+unique_name_in_owner = true
+layers = 524288
+mesh = ExtResource("2_w7shy")
 
 [connection signal="timeout" from="WeaponTimer" to="." method="weapon_timer_callback"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://1c5up3nahvhf"]
+
+[ext_resource type="Texture2D" uid="uid://cuvs10i3jckkx" path="res://Materiais/Sprites/ak_wallbuy.png" id="1_uif4d"]
+[ext_resource type="Script" path="res://Objetos/Entidades/Wallbuy.gd" id="2_1ttgg"]
+[ext_resource type="Resource" uid="uid://du5vhwtre2sof" path="res://Objetos/Recursos/Armas/pistol_2.tres" id="3_gpawx"]
+[ext_resource type="PackedScene" uid="uid://drpflh4aemdje" path="res://Objetos/Components/InteractComponent.tscn" id="3_iih82"]
+
+[node name="Wallbuy" type="Sprite3D"]
+transform = Transform3D(-1.07093e-08, 0, 0.245, 0, 0.245, 0, -0.245, 0, -1.07093e-08, 0, 0, 0)
+texture = ExtResource("1_uif4d")
+script = ExtResource("2_1ttgg")
+weapon = ExtResource("3_gpawx")
+cost = 600
+
+[node name="InteractComponent" parent="." instance=ExtResource("3_iih82")]

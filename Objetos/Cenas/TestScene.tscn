@@ -13,6 +13,7 @@ cooldown = 0.2
 max_distance = 20
 damage = 30.0
 automatic = true
+name = "default_name"
 
 [node name="TestScene3D" type="Node3D"]
 script = ExtResource("1_n30py")
@@ -40,3 +41,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75152, -4.16174)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.55286, 2.73805, -19.3515)
 
 [node name="HUD" parent="." instance=ExtResource("6_1cmbn")]
+unique_name_in_owner = true
